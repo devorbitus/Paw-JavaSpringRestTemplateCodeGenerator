@@ -51,6 +51,18 @@ public class RestTemplateSendRequest {
     HttpEntity<String> httpEntity = new HttpEntity<String>(body, headers);
 {{/body.has_json_body}}
 {{! ----- }}
+{{^body.has_multipart_body}}
+{{^body.has_url_encoded_body}}
+{{^body.has_raw_body}}
+{{^body.has_long_body}}
+{{^body.has_json_body}}
+    HttpEntity<String> httpEntity = new HttpEntity<>("parameters", headers);
+{{/body.has_json_body}}
+{{/body.has_long_body}}
+{{/body.has_raw_body}}
+{{/body.has_url_encoded_body}}
+{{/body.has_multipart_body}}
+{{! ----- }}
     // Call api
     ResponseEntity<String> result = restTemplate.exchange(
           "{{{url.fullpath}}}",
